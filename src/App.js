@@ -68,6 +68,10 @@ class App extends Component {
     console.log(this.state.tokenUri);
   }
 
+  async createNFT(){
+    this.state.NFT.methods.mint('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4',4,"www.coucou.ch",1,'0x5B38Da6a701c568545dCfcB03FcB875f56beddC4','0x5B38Da6a701c568545dCfcB03FcB875f56beddC4').send({ from: this.state.account })
+  }
+
   constructor(props) {
     super(props)
     this.state = { account: '',
