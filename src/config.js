@@ -1,4 +1,4 @@
-export const TODO_LIST_ADDRESS = '0x61bA3e4a1D4d805811f63cFa0F3E83c5a97e7c86' //addresse du contrat pas de la wallet !!!!
+export const TODO_LIST_ADDRESS = '0xB07AF4A56AE878bE249f6498f58C99B034C99350' //addresse du contrat pas de la wallet !!!!
 
 export const TODO_LIST_ABI = [
 	{
