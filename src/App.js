@@ -57,8 +57,15 @@ class App extends Component {
     console.log(idForPrice)
     this.setState({price: idForPrice});
   }
-  async createNFT(){
-    this.state.NFT.methods.mint('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4',4,"www.coucou.ch",1,'0x5B38Da6a701c568545dCfcB03FcB875f56beddC4','0x5B38Da6a701c568545dCfcB03FcB875f56beddC4').send({ from: this.state.account })
+  async BuyNFT(id){
+    console.log(id)
+    console.log(this.state.account)
+    this.state.NFT.methods.BuyNFT(id,this.state.account).send({ from: this.state.account })
+  }
+  async tokenURI(id){
+    let uri=await this.state.NFT.methods.tokenURI(id).call()
+    this.setState({tokenUri: uri});
+    console.log(this.state.tokenUri);
   }
 
   constructor(props) {
@@ -68,13 +75,16 @@ class App extends Component {
     taskCount: 0,
     NFT: [],
     loading:true,
-    id:'1',
+    id:'',
     price:'undefined',
-    walletOwner:'2',
+    walletOwner:'',
     walletArtist:'',
     priceDefine:'',
     idDefine:'',
-    urlDefine:''
+    urlDefine:'',
+    ownerWallet:'',
+    tokenUri:'',
+    idforURI:''
   }
   this.handleChangeId = this.handleChangeId.bind(this);
   this.handleChangeOwner = this.handleChangeOwner.bind(this);
@@ -82,6 +92,7 @@ class App extends Component {
   this.handleChangePriceDefine = this.handleChangePriceDefine.bind(this);
   this.handleChangeIdDefine = this.handleChangeIdDefine.bind(this);
   this.handleChangeUrlDefine = this.handleChangeUrlDefine.bind(this);
+  this.handleChangeIdforuri = this.handleChangeIdforuri.bind(this);
   }
   handleChangeId(event) {
     this.setState({id: event.target.value});
@@ -100,6 +111,9 @@ class App extends Component {
   }
   handleChangeUrlDefine(event) {
     this.setState({urlDefine: event.target.value});
+  }
+  handleChangeIdforuri(event) {
+    this.setState({idforURI: event.target.value});
   }
 
   render() {
@@ -137,33 +151,40 @@ class App extends Component {
           getPrice
         </button>
         <p>CurrentNFTPrice: {this.state.price} eth</p>
+
+        <input type="text" value={this.state.idforURI} onChange={this.handleChangeIdforuri} />
+        <button onClick={() => this.tokenURI(this.state.idforURI)}>
+        tokenURI
+        </button>
+        <p>tokenURI: {this.state.tokenUri}</p>
+
         </div>
         
           </div>
           <div>
+          <div style={{borderStyle: "inset",width: '250px'}}>
           <div>
-          <div>
-          <label>WalletOwner</label>
-          <input type="text" value={this.state.walletOwner} onChange={this.handleChangeOwner} />
+          <label style={{width: "120px"}}>WalletOwner</label>
+          <input style={{width: "120px"}} type="text" value={this.state.walletOwner} onChange={this.handleChangeOwner} />
           </div>
           <div>
-          <label>walletArtist</label>
-          <input type="text" value={this.state.walletArtist} onChange={this.handleChangeArtist} />
+          <label style={{width: "120px"}}>walletArtist</label>
+          <input style={{width: "120px"}} type="text" value={this.state.walletArtist} onChange={this.handleChangeArtist} />
           </div>
           <div>
-          <label>price</label>
-          <input type="text" value={this.state.priceDefine} onChange={this.handleChangePriceDefine} />
+          <label style={{width: "120px"}}>price</label>
+          <input style={{width: "120px"}}type="text" value={this.state.priceDefine} onChange={this.handleChangePriceDefine} />
           </div>
           <div>
-          <label>id</label>
-          <input type="text" value={this.state.idDefine} onChange={this.handleChangeIdDefine} />
+          <label style={{width: "120px"}}>id</label>
+          <input style={{width: "120px"}} type="text" value={this.state.idDefine} onChange={this.handleChangeIdDefine} />
           </div>
           <div>
-          <label>url</label>
-          <input type="text" value={this.state.urlDefine} onChange={this.handleChangeUrlDefine} />
+          <label style={{width: "120px"}}>url</label>
+          <input style={{width: "120px"}} type="text" value={this.state.urlDefine} onChange={this.handleChangeUrlDefine} />
           </div>
           </div>
-          <button onClick={() => this.createNFT(this.state.walletOwner,this.state.walletArtist,this.state.priceDefine,this.state.idDefine,this.state.urlDefine)}>
+          <button style={{borderStyle: "inset",width: '250px'}} onClick={() => this.createNFT(this.state.walletOwner,this.state.walletArtist,this.state.priceDefine,this.state.idDefine,this.state.urlDefine)}>
           createNFT
           </button>
         </div>
