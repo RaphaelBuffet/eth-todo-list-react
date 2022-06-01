@@ -69,7 +69,7 @@ class App extends Component {
   }
 
   async createNFT(){
-    this.state.NFT.methods.mint('0x5B38Da6a701c568545dCfcB03FcB875f56beddC4',4,"www.coucou.ch",1,'0x5B38Da6a701c568545dCfcB03FcB875f56beddC4','0x5B38Da6a701c568545dCfcB03FcB875f56beddC4').send({ from: this.state.account })
+    this.state.NFT.methods.mint(this.state.account,this.state.idDefine,this.state.urlDefine,this.state.price,this.state.ownerWallet,this.state.walletArtist).send({ from: this.state.account })
   }
 
   constructor(props) {
